@@ -84,6 +84,8 @@ print(c) //
 
 * 사용자 입력 받기
 
+-> input 함수는 "한 줄"의 문자열을 입력받는다.
+
 a = input() // 입력
 print(a) // 출력
 
@@ -94,6 +96,22 @@ a, b = input("두 숫자를 입력하세요").split() // 2 3
 print(a + b) // 23 -> 문자로 입력이 되어서 붙어버린다
 
 type 이 str임.
+
+
+* 코딩테스트 전형적 입력 방법 -> 복붙 가능
+
+n = int(input())
+arr = list(map(int, input().split()))
+
+print(n)
+print(arr)
+
+
+* 코딩테스트 전형적 문자열 입력 방법(input 보다 훨씬 빠른속도)
+
+import sys
+data = sys.stdin.readline().rstrip()
+
 
 
 * 형변환
@@ -108,11 +126,16 @@ a, b, c = map(int, input("숫자를 입력하세요: ").split()) // 한꺼번에
 print(a, b, c)
 -> 띄어쓰기 입력밖에?
 
+
+* map 함수 -> JS의 배열 고차함수 map 과 비슷하다고 생각.
+
 파이썬의 내장 함수인 map()는 여러 개의 데이터를 한 번에 다른 형태로 변환하기 위해서 사용됩니다. 따라서, 여러 개의 데이터를 담고 있는 list나 tuple을 대상으로 주로 사용하는 함수입니다.
 
 사용 방법은 매우 간단한데요… 기본 문법은 다음과 같습니다.
 
 map(변환 함수, 순회 가능한 데이터)
+
+** int 도 내장 함수임. integer로 변환하는 함수
 
 *** 하나만 변환할거면 int(input()) 이런식으로.
 
@@ -148,6 +171,31 @@ print(type(c))
 
 round(실수형 데이터, 반올림하고자 하는 위치 -1)
 round(423.456, 2)  ~> 423.46
+
+
+**** in, not in -> 빌트인 자료형(리스트, 문자열, 튜플, 딕셔너리, 셋)에 모두 사용 가능
+
+arr = [1, 2, 3, 4] // list
+s1 = {1, 2, 3} // set
+d = {"1": 1, "2": 2} // dict
+t = (1, 2, 3) // tuple
+msg = "Hi im Ted" // str
+
+print(2 in arr) # True
+print(1 not in arr) # False
+print(2 in s1) # True
+print("1" in d) # True
+print(1 in d) # False
+print(3 in t) # True
+print(' ' in msg) # True
+
+
+* 파이썬의 삼항 연산자
+
+print("True는 참" if True else "True는 거짓")
+-> true ? "True는 참" : "True는 거짓"
+print("False는 참" if False else "False는 거짓")
+
 
 
 
@@ -339,6 +387,21 @@ print(a + " " + b) ~> Hello World
 a = "String"
 print(a * 3) ~> StringStringString
 
+
+**** 주의점 문자열 연산은 문자열끼리 밖에 되지 않음
+
+answer = 10
+print("정답은" + answer + "입니다.") // error
+
+-> 1)
+print("정답은 " + str(answer) + " 입니다.") // ok
+-> 2)
+print("정답은", answer, "입니다.") // ok
+
+=> 공백 주의
+
+
+
 1) 대문자화 - str.upper()
 -> side effect x
 
@@ -351,7 +414,7 @@ print(a * 3) ~> StringStringString
 4) 문자 들어간 갯수 - str.count(문자)
 -> side effect x
 
-5) 문자열 슬라이스 - str[[,숫자1]:숫자2]
+5) 문자열 슬라이스 - str[[,숫자1]:숫자2] -> 문자열은 내부적으로 리스트랑 비슷
 -> side effect x
 * 숫자1번째 인덱스부터 숫자2 - 1 까지 슬라이스 숫자1 없으면 0부터
 
@@ -387,7 +450,7 @@ print(chr(tmp)) // 아스키 코드를 문자로
 
 8. 리스트와 내장함수 (1)
 
-리스트 - 파이썬의 배열
+리스트 - 파이썬의 배열. 내부적으로 연결리스트 방식을 채택하고있음.
 
 
 -> 리스트 선언법
@@ -400,6 +463,9 @@ b = list(range(1,10))
 c = a + b
 print(c) // a와 b가 합쳐짐 미친문법
 
+* 파이썬에서는 음수 인덱스도 지원함
+a[-2] // 3
+
 
 * 내장 함수
 
@@ -410,6 +476,7 @@ print(c) // a와 b가 합쳐짐 미친문법
 변수명.insert(인덱스, 삽입할 값)	지정한 위치에 원소 삽입 | O(N)
 변수명.count(특정 값)	특정한 값을 가지는 데이터의 개수	| O(N)
 변수명.remove(특정 값)	특정한 값을 갖는 원소 제거	| O(N)
+
 
 1) 리스트에 원소 추가 - arr.append(원소)
 -> side effect o
@@ -453,9 +520,24 @@ r.shuffle(a) // 무작위 리스트 요소 출력
 a.sort() // 오름차순
 a.sort(reverse=True) // 내림차순
 
+
+** 주의
+print(a.sort()) // 하면 안되네
+
+a.sort()
+print(a) // 이렇게 해야 되네 -> 반환값이 없기 때문
+
+
 10) 리스트 초기화(모든 요소 삭제) - arr.clear()
 -> side effect o
 
+
+* 10.5) 리스트 특정 요소 모두 삭제
+
+arr = [1, 2, 3, 4, 4, 5]
+remove_set = {3, 4}
+
+result =[x for x in arr if x not in remove_set]
 
 
 
@@ -569,5 +651,241 @@ for i in a: // 위 코드를 세분화
     for j in i:
         print(j, end=" ")
     print()
+
+
+
+11. Set 자료형
+
+-> 집합에 관련된 것을 쉽게 처리하기 위해 만들어진 자료형
+
+* 중복을 허용하지 않는다.
+* 순서가 없다(Unordered).
+
+s1 = set([1,2,3])
+s2 = {'a','b','c'}
+s3 = set("hello")
+print(s1) // {1, 2, 3}
+print(s2) // {'a', 'b', 'c'}
+print(s3) // {'o', 'l', 'e', 'h'}
+
+
+
+
+리스트나 튜플은 순서가 있기(ordered) 때문에 인덱싱을 통해 자료형의 값을 얻을 수 있지만 set 자료형은 순서가 없기(unordered) 때문에 인덱싱으로 값을 얻을 수 없다.
+
+만약 set 자료형에 저장된 값을 인덱싱으로 접근하려면 다음과 같이 리스트나 튜플로 변환한후 해야 한다.
+
+arr = [11, 11, 11, 23, 412, 3, 5123, 123, 3, 123, 1, 23, 1]
+s1 = set(arr)
+arr2 = list(s1)
+print(arr2) // [1, 3, 5123, 11, 23, 123, 412]
+
+※ 중복을 허용하지 않는 set의 특징은 자료형의 중복을 제거하기 위한 필터 역할로 종종 사용하기도 한다.
+
+
+
+* set 자료형을 정말 유용하게 사용하는 경우는 교집합, 합집합, 차집합을 구할 때이다.
+
+& : 교집합
+| : 합집합
+- : 차집합
+
+-> 모두 Set형태로 출력
+
+* 관련 메서드
+
+1) 값 1개 추가하기 - add O(1)
+2) 값 여러개 추가하기 - update
+3) 특정 값 제거하기 - remove O(1)
+
+s1 = set([11,11,2,3,3,4])
+
+s1.add(1)
+s1.update([4,5,6])
+s1.remove(11)
+
+print(s1) // {1, 2, 3, 4, 5, 6}
+
+*** 또한 '특정한 데이터가 이미 등장한 적이 있는지 여부를 체크'할 때 매우 효과적
+
+
+
+12. 딕셔너리 자료형
+
+자바스크립트 객체와 비슷
+
+-> 내부적으로 해시테이블 이용. 데이터 검색 및 수정이 o(1) 복잡도를 가짐. 리스트보다 훨씬 빠르게 동작함 + 공간 효율적
+
+*
+딕셔너리는 리스트나 튜플처럼 순차적으로(sequential) 해당 요솟값을 구하지 않고 Key를 통해 Value를 얻는다. 이것이 바로 딕셔너리의 가장 큰 특징이다. baseball이라는 단어의 뜻을 찾기 위해 사전의 내용을 순차적으로 모두 검색하는 것이 아니라 baseball이라는 단어가 있는 곳만 펼쳐 보는 것이다.
+
+dic = {'name':'pey', 'phone':'0119993323', 'birth': '1118'}
+a = {1: 'hi'}
+a = { 'a': [1,2,3]}
+
+
+* 딕셔너리 쌍 추가, 삭제하기
+
+dic[key] = value // 추가
+del dic[key] // 삭제
+
+
+a = {1: 'a'}
+>>> a[3] = 'b' // 키가 숫자
+>>> a
+{1: 'a', 3: 'b'}
+
+a['name'] = 'pey' // 키가 문자열
+>>> a
+{1: 'a', 2: 'b', 'name': 'pey'}
+
+dic = {"1": "a", "2": "b"}
+del dic["1"] // 삭제
+
+-> 동일한 키, 값 쌍을 넣으면 먼저 있던 것이 사라짐
+
+
+
+* 딕셔너리 관련 함수들
+
+1) key값 반환 - keys()
+
+dic = {"1": "a", "2": "b"}
+
+print(dic.keys()) // 디폴트로 dict_keys 객체 반환
+print(list(dic.keys())) // 리스트로 변환도 가능
+
+for i in dic.keys(): // 그냥 리스트와 같다고 생각해도 되나 리스트의 메서드는 사용할 수 없음
+    print(i)
+
+for i in list(dic.keys()):
+    print(i)
+
+
+2) value값 반환 - values()
+
+key와 마찬가지
+
+
+dic = {"1": "a", "2": "b"}
+
+print(dic.values())
+print(list(dic.values()))
+
+for i in dic.values():
+    print(i)
+
+for i in list(dic.values()):
+    print(i)
+
+
+
+
+3) 키, 값 쌍 얻기 - items()
+
+items 함수는 Key와 Value의 쌍을 튜플로 묶은 값을 dict_items 객체로 돌려준다. dict_values 객체와 dict_items 객체 역시 dict_keys 객체와 마찬가지로 리스트를 사용하는 것과 동일하게 사용할 수 있다.
+
+dic = {"1": "a", "2": "b"}
+print(dic.items()) // dict_items([('1', 'a'), ('2', 'b')])
+print(list(dic.items())) // [('1', 'a'), ('2', 'b')]
+
+
+4) 딕셔너리 비우기 - clear()
+
+
+dic = {"1": "a", "2": "b"}
+dic.clear() // sort와 마찬가지로 print() 내부에서 사용 x 반환값이 없기떄문
+print(dic) // {}
+
+
+5) key로 value 얻기 - get()
+
+dic = {"1": "a", "2": "b"}
+print(dic.get("1"))
+-> 직접 접근과 다르게 키값이 딕셔너리 내부에 존재하지 않아도 오류 출력하지 않음
+
+
+6) 해당 key가 딕셔너리 안에 있는지 조사하기 - in
+
+dic = {"1": "a", "2": "b"}
+
+print('1' in dic) // True
+
+
+
+
+13. 함수 만들기
+
+1)
+def add(a,b):
+    return a+b
+
+print(add(1,2))
+
+2) 미친문법 리턴 두 개 이상 가능
+def solution(a, b):
+    c = a + b
+    d = a - b
+    return c, d
+
+
+a1, a2 = solution(10, 2)
+print(a1, a2) // 12, 8
+print(solution(8, 4)) // (12, 4) 튜플 형태로 출력
+
+
+3) 소수 판별하기
+
+a = [12, 13, 7, 9, 19, 11, 14, 6, 5, 3, 21, 100, 101]
+
+def sol(arr):
+    result = []
+    for i in arr:
+        for x in range(2, i):
+            if i % x == 0:
+                break
+            if x == i - 1:
+                result.append(i)
+    return result
+
+
+re = sol(a)
+re.sort()
+print(re) // [3, 5, 7, 11, 13, 19, 101]
+
+
+
+
+
+14. 람다 함수
+
+-> 익명 함수, 람다 표현식
+
+a = lambda x: x + 2
+print(a(3)) // 5
+
+
+**** 람다 표현식이 유용할 때?
+-> 어떤 함수의 매개 표현식으로 들어갈 때 ex) map 함수, sort 함수 내부에도 사용 가능
+
+
+a = [1, 2, 3, 4]
+
+def plus_one(x):
+    return x + 1
+
+print(list(map(plus_one, a)))
+print(list(map(lambda x: x + 1, a))) // 매우 유용
+
+
+
+
+
+
+
+
+
+
+
 
 ```
