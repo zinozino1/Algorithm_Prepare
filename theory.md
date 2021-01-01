@@ -879,8 +879,38 @@ print(list(map(lambda x: x + 1, a))) // 매우 유용
 
 
 
+15. 기타 내장 함수
+
+1) eval() - 수학 수식이 문자열 형식으로 들어오면 해당 수식을 계산한 결과를 반환
+
+result = eval("3*5")
+print(result) // 15
 
 
+2) sorted() - 이터러블 객체가 들어왔을 때 정렬된 결과를 반환.
+=> 주로 "리스트"가 아닌 이터러블 객체에 사용하는듯 리스트는 그냥 sort() 쓰면 된다.
+
+result = sorted([1, 2, 3])
+result2 = sorted("asdb")
+result3 = sorted((1, 2, 3), reverse=True)
+result4 = sorted({"!":1,"2":3})
+
+print(result)
+print(result2)
+print(result3)
+print(result4)
+
+result6 = sorted([("홍길동", 60), ("강감찬", 80), ("이순신", 30)],
+ key=lambda x: x[1], reverse=True)
+print(result6) // [('강감찬', 80), ('홍길동', 60), ('이순신', 30)]
+
+result6.sort(key=lambda x: x[1]) // 이것도 가능
+print(result6)
+
+-> 이차원 리스트나 튜플 배열일 때 이렇게 할 수 있음. 딕셔너리나 셋은 안되나봐
+
+* key - 어떤 원소 기준으로 정렬할 것인지?
+* lambda - 정렬 기준은?(함수)
 
 
 
