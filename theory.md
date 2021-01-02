@@ -100,18 +100,26 @@ type 이 str임.
 
 * 코딩테스트 전형적 입력 방법 -> 복붙 가능
 
+경우 1)
 n = int(input())
 arr = list(map(int, input().split()))
 
 print(n)
 print(arr)
 
+경우 2)
+a, b = map(int, input().split())
 
 * 코딩테스트 전형적 문자열 입력 방법(input 보다 훨씬 빠른속도)
 
 import sys
 data = sys.stdin.readline().rstrip()
 
+*** split 함수
+-> 디폴트는 띄어쓰기 입력
+-> 인자 넣으면 인자에 따라 입력 가능
+a,b = input().split('.') -> \n 은 안되는듯?
+print(a,b)
 
 
 * 형변환
@@ -171,6 +179,13 @@ print(type(c))
 
 round(실수형 데이터, 반올림하고자 하는 위치 -1)
 round(423.456, 2)  ~> 423.46
+
+
+*** round half even 방식을 택하자
+
+a = 66.5
+a = a + 0.5
+a = int(a) -> 이것이 더 오류 적음
 
 
 **** in, not in -> 빌트인 자료형(리스트, 문자열, 튜플, 딕셔너리, 셋)에 모두 사용 가능
@@ -257,7 +272,9 @@ else:
 * range 함수
 
 a = range(10) // 순차적으로 정수 리스트를 만듦 0부터 range - 1까지
+-> 아직 실체화 x
 print(list(a)) // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+-> 실체화 o
 
 a = range(1, 10) // 앞의 숫자는 포함 뒤의 숫자는 -1
 b = range(1, 11)
@@ -356,6 +373,8 @@ for i in range(1, n + 1):
     sum += i
 print(sum)
 
+* result = sum(list(range(n + 1))) // 이렇게도 가능
+
 3) N의 약수 출력하기
 
 for i in range(1, n + 1):
@@ -402,23 +421,23 @@ print("정답은", answer, "입니다.") // ok
 
 
 
-1) 대문자화 - str.upper()
+1) 대문자화 - str.upper() // 반환 값 존재
 -> side effect x
 
-2) 소문자화 - str.lower()
+2) 소문자화 - str.lower() // 반환 값 존재
 -> side effect x
 
-3) 문자 찾기 - str.find(문자, [,index])
+3) 문자 찾기 - str.find(문자, [,index]) // 반환 값 존재
 -> side effect x
 
-4) 문자 들어간 갯수 - str.count(문자)
+4) 문자 들어간 갯수 - str.count(문자) // 반환 값 존재
 -> side effect x
 
 5) 문자열 슬라이스 - str[[,숫자1]:숫자2] -> 문자열은 내부적으로 리스트랑 비슷
--> side effect x
+-> side effect x // 반환 값 존재
 * 숫자1번째 인덱스부터 숫자2 - 1 까지 슬라이스 숫자1 없으면 0부터
 
-6) 문자열 길이 - len(str)
+6) 문자열 길이 - len(str) // 반환 값 존재
 -> side effect x
 for i in range(len(str)):
     print(str[i])
@@ -479,21 +498,26 @@ a[-2] // 3
 
 
 1) 리스트에 원소 추가 - arr.append(원소)
+-> 반환 값 없음
 -> side effect o
 -> 제일 뒤에 추가됨
 
 2) 리스트의 특정 위치에 원소 추가 - arr.insert(인덱스, 원소)
+-> 반환 값 없음
 -> side effect o
 
 3) 리스트의 특정 위치 원소를 제거 - arr.pop([,인덱스])
+-> 반환 값 없음
 -> side effect o
 -> 빼낸 값을 활용 가능(변수 할당하여)
 -> 인덱스 안 쓰면 리스트의 맨 뒤 원소 제거
 
 4) 리스트의 특정 원소 제거 - arr.remove(리스트에 존재하는 원소)
+-> 반환 값 없음
 -> side effect o
 
 5) 리스트의 특정 원소 인덱스 알기 - arr.index(리스트에 존재하는 원소)
+-> 반환 값 없음
 -> side effect o
 
 6) 리스트 요소 모두 더하기 - sum(arr)
@@ -535,7 +559,7 @@ print(a) // 이렇게 해야 되네 -> 반환값이 없기 때문
 * 10.5) 리스트 특정 요소 모두 삭제
 
 arr = [1, 2, 3, 4, 4, 5]
-remove_set = {3, 4}
+remove_set = {3, 4} // set 뿐 아니라 리스트, 튜플도 되는듯?
 
 result =[x for x in arr if x not in remove_set]
 
@@ -558,8 +582,8 @@ result =[x for x in arr if x not in remove_set]
 
 a = [11, 12, 35, 21, 36, 90]
 
-for i in a: // 문자열과 같음 이게 훨씬 좋음
-    print(i, end=" ")
+for x in a: // 문자열과 같음 인덱스가 아닌 원소로 접근
+    print(x, end=" ")
 
 for i in range(len(a)): // 문자열과 같음
     print(a[i], end=" ")
@@ -601,10 +625,14 @@ for x in enumerate(a): // tuple로 변경
 for i, v in enumerate(a): // 더 자주 쓰이는 방법
     print(i, v)
 
+a = (1, 2, 3, 4)
+b, c, d, e = a // 비구조화할당
 
 
 
 * all 함수 - 리스트에 조건걸 때 유용
+
+all or any (조건문;반복문)
 
 if all(100 > x for x in a): // 리스트의 모든 요소가 조건을 만족할 때
     print("모든 리스트 요소가 만족합니다.")
@@ -640,7 +668,7 @@ g = [ (x, z, y) for x in ['쌈밥', '치킨', '피자'] for y in ['사과', '아
 a = [0] * 10 // 미친문법
 print(a) // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-a = [[0] * 3 for _ in range(3)]
+a = [[0] * 3 for _ in range(3)] // 이차원 리스트를 초기화 시킬때는 무조건 리스트 컴프리헨션 이용해야 함
 print(a) // [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
 
@@ -680,11 +708,11 @@ s1 = set(arr)
 arr2 = list(s1)
 print(arr2) // [1, 3, 5123, 11, 23, 123, 412]
 
+
 ※ 중복을 허용하지 않는 set의 특징은 자료형의 중복을 제거하기 위한 필터 역할로 종종 사용하기도 한다.
-
-
-
 * set 자료형을 정말 유용하게 사용하는 경우는 교집합, 합집합, 차집합을 구할 때이다.
+*** 또한 '특정한 데이터가 이미 등장한 적이 있는지 여부를 체크'할 때 매우 효과적
+
 
 & : 교집합
 | : 합집합
@@ -706,7 +734,7 @@ s1.remove(11)
 
 print(s1) // {1, 2, 3, 4, 5, 6}
 
-*** 또한 '특정한 데이터가 이미 등장한 적이 있는지 여부를 체크'할 때 매우 효과적
+
 
 
 
@@ -861,7 +889,7 @@ print(re) // [3, 5, 7, 11, 13, 19, 101]
 
 -> 익명 함수, 람다 표현식
 
-a = lambda x: x + 2
+a = lambda x: x + 2 // x : 매개변수 x + 2 : 리턴값
 print(a(3)) // 5
 
 
