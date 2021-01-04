@@ -420,7 +420,7 @@ print("정답은", answer, "입니다.") // ok
 
 => 공백 주의
 
-
+0) 문자가 숫자인가? - char.isdecimal()
 
 1) 대문자화 - str.upper() // 반환 값 존재
 -> side effect x
