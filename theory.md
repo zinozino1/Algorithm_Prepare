@@ -577,6 +577,8 @@ result =[x for x in arr if x not in remove_set]
 -> side effect x
 -> 문자열과 같음
 
+3) 리스트 합치기 - arr.extend(arr2)
+
 
 
 * for문과 리스트의 활용
