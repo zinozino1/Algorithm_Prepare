@@ -116,6 +116,13 @@ a, b = map(int, input().split())
 import sys
 data = sys.stdin.readline().rstrip()
 
+경우 3)
+
+* 입력 숫자 값이 매우 많을 때
+
+k, n = map(int, input().split())
+a = [int(sys.stdin.readline()) for _ in range(k)]
+
 *** split 함수
 -> 디폴트는 띄어쓰기 입력
 -> 인자 넣으면 인자에 따라 입력 가능
