@@ -159,6 +159,7 @@ map(변환 함수, 순회 가능한 데이터)
 * 연산
 
 a, b = map(int, input("숫자를 입력하세요: ").split())
+-> 이말인 즉슨 input().split()이 이터러블이란 것
 
 입력 : 10 2
 
@@ -213,7 +214,7 @@ print(3 in t) # True
 print(' ' in msg) # True
 
 
-* 파이썬의 삼항 연산자
+* 파이썬의 삼항 연산자 -> 잘 안 쓰는듯?
 
 print("True는 참" if True else "True는 거짓")
 -> true ? "True는 참" : "True는 거짓"
@@ -427,7 +428,7 @@ print("정답은", answer, "입니다.") // ok
 
 => 공백 주의
 
-0) 문자가 숫자인가? - char.isdecimal()
+0) 문자가 숫자인가? - char.isdecimal() & isdigit()도 되는듯
 
 1) 대문자화 - str.upper() // 반환 값 존재
 -> side effect x
@@ -444,6 +445,8 @@ print("정답은", answer, "입니다.") // ok
 5) 문자열 슬라이스 - str[[,숫자1]:숫자2] -> 문자열은 내부적으로 리스트랑 비슷
 -> side effect x // 반환 값 존재
 * 숫자1번째 인덱스부터 숫자2 - 1 까지 슬라이스 숫자1 없으면 0부터
+str[::-1] : 리버싱
+str[i:j:k] -> range 에 들어가는 것과 비슷하다고 생각하면 됨
 
 6) 문자열 길이 - len(str) // 반환 값 존재
 -> side effect x
@@ -490,7 +493,7 @@ b = list(range(1,10))
 c = a + b
 print(c) // a와 b가 합쳐짐 미친문법
 
-* 파이썬에서는 음수 인덱스도 지원함
+* 파이썬에서는 음수 인덱스도 지원함 -> 리스트가 비어있으면 사용불가 + 아웃오브레인지여도 사용 불가
 a[-2] // 3
 
 
@@ -499,7 +502,7 @@ a[-2] // 3
 변수명.append()	리스트에 원소 삽입	| O(1)
 변수명.sort()	오름차순으로 정렬	| O(NlogN)
 변수명.sort(reverse=True)	내림차순으로 정렬	| O(NlogN)
-변수명.reverse()	원래 원소의 순서를 뒤집어 놓음 | O(N)
+변수명.reverse()	원래 원소의 순서를 뒤집어 놓음 | O(N) -> arr[::-1] 도 가능
 변수명.insert(인덱스, 삽입할 값)	지정한 위치에 원소 삽입 | O(N)
 변수명.count(특정 값)	특정한 값을 가지는 데이터의 개수	| O(N)
 변수명.remove(특정 값)	특정한 값을 갖는 원소 제거	| O(N)
@@ -639,6 +642,10 @@ a = (1, 2, 3, 4)
 b, c, d, e = a // 비구조화할당
 
 
+* 만약 any 를 생각하지 못하고 tuple 배열의 맥스를 구해야한다면 ?
+-> 튜플을 (인덱스, 값)이 아닌 (값, 인덱스) 한 다음에 max(tuple[0])이렇게 하면 된다. max(튜플) 하면은 무조건 인덱스 0인 요소만 비교하기 때문
+
+
 
 * all 함수 - 리스트에 조건걸 때 유용
 
@@ -672,6 +679,8 @@ e = [ 2 * x for x in range(1, 10 + 1) ]
 e2 = [ x for x in range(10) if x < 5 if x % 2 == 0 ]
 f = [ (x, y) for x in ['쌈밥', '치킨', '피자'] for y in ['사과', '아이스크림', '커피']]
 g = [ (x, z, y) for x in ['쌈밥', '치킨', '피자'] for y in ['사과', '아이스크림', '커피'] for z in ['배달 시키기', '가서 먹기']]
+
+ss = [(x, y) for x, y in enumerate(arr)] // 이런식으로 튜플 배열 생성 가능
 
 
 
@@ -840,6 +849,7 @@ print(dic) // {}
 
 dic = {"1": "a", "2": "b"}
 print(dic.get("1"))
+print(dic.get("1", 0)) => key에 해당하는 값이 없으면 디폴트 값 가져옴
 -> 직접 접근과 다르게 키값이 딕셔너리 내부에 존재하지 않아도 오류 출력하지 않음
 
 
@@ -915,6 +925,12 @@ def plus_one(x):
 print(list(map(plus_one, a)))
 print(list(map(lambda x: x + 1, a))) // 매우 유용
 
+
+** tuple sorting (x, y) 형태일 때
+
+tuple.sort() -> x 기준으로 정렬되고 x가 같을 경우 y 기준 정렬
+tuple.sort(key=lambda x: (x[1], x[0])) -> y 기준으로 정렬되고 y가 같을 경우 x 기준으로 정렬
+arr.sort(key=lambda x: x[1]) 이렇게도 되는 듯
 
 
 15. 기타 내장 함수
