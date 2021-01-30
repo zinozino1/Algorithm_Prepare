@@ -473,9 +473,38 @@ for x in tmp:
 tmp = 65
 print(chr(tmp)) // 아스키 코드를 문자로
 
+7) str.replace
 
 
+text = '123,456,789,999'
 
+replaceAll= text.replace(",","")
+replace_t1 = text.replace(",", "",1)
+replace_t2 = text.replace(",", "",2)
+replace_t3 = text.replace(",", "",3)
+print("결과 :")
+print(replaceAll)
+print(replace_t1)
+print(replace_t2)
+print(replace_t3)
+
+'''
+결과 :
+123456789999
+123456,789,999
+123456789,999
+123456789999
+'''
+
+8) 문자열 입력 개행문자 제거
+
+-> 보통의 경우 : str = input() = "ABCD\n"
+print(len(str)) => 5
+print(str[-1]) => "/n"
+
+-> 공백 제거한 경우 str = input().strip() = "ABCD"
+print(len(str)) => 4
+print(str[-1]) => "D"
 
 
 8. 리스트와 내장함수 (1)
@@ -930,8 +959,8 @@ print(list(map(lambda x: x + 1, a))) // 매우 유용
 
 tuple.sort() -> x 기준으로 정렬되고 x가 같을 경우 y 기준 정렬
 tuple.sort(key=lambda x: (x[1], x[0])) -> y 기준으로 정렬되고 y가 같을 경우 x 기준으로 정렬
-arr.sort(key=lambda x: x[1]) 이렇게도 되는 듯
-
+arr.sort(key=lambda x: x[0]) -> x기준으로만 정렬. y는 입력된 순서 그대로
+tuple.sort(key=lambda x: (x[0], -x[1])) -> x 기준으로 정렬되고 x가 같을 경우 y는 내림차순 정렬
 
 15. 기타 내장 함수
 
