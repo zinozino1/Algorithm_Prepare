@@ -208,7 +208,7 @@ msg = "Hi im Ted" // str
 print(2 in arr) # True
 print(1 not in arr) # False
 print(2 in s1) # True
-print("1" in d) # True
+print("1" in d) # True -> key값으로 판단
 print(1 in d) # False
 print(3 in t) # True
 print(' ' in msg) # True
@@ -307,10 +307,10 @@ for i in range(10):
 for i in range(10, 0): // 아무것도 출력 x
     print(i)
 
-for i in range(10, 0, -1): // 10, 9, 8...
+for i in range(10, 0, -1): // 10, 9, 8...1
     print(i)
 
-for i in range(10, 0, -2): // 10, 8, 6...
+for i in range(10, 0, -2): // 10, 8, 6...2
     print(i)
 
 
@@ -579,7 +579,7 @@ r.shuffle(a) // 무작위 리스트 요소 출력
 
 
 9) 리스트 정렬 - arr.sort([,reverse])
--> side effect o
+-> side effect o **
 
 a.sort() // 오름차순
 a.sort(reverse=True) // 내림차순
@@ -958,9 +958,9 @@ print(list(map(lambda x: x + 1, a))) // 매우 유용
 ** tuple sorting (x, y) 형태일 때
 
 tuple.sort() -> x 기준으로 정렬되고 x가 같을 경우 y 기준 정렬
-tuple.sort(key=lambda x: (x[1], x[0])) -> y 기준으로 정렬되고 y가 같을 경우 x 기준으로 정렬
-arr.sort(key=lambda x: x[0]) -> x기준으로만 정렬. y는 입력된 순서 그대로
-tuple.sort(key=lambda x: (x[0], -x[1])) -> x 기준으로 정렬되고 x가 같을 경우 y는 내림차순 정렬
+tuple.sort(key=lambda v: (v[1], v[0])) -> y 기준으로 정렬되고 y가 같을 경우 x 기준으로 정렬
+arr.sort(key=lambda v: v[0]) -> x기준으로만 정렬. y는 입력된 순서 그대로
+tuple.sort(key=lambda v: (v[0], -v[1])) -> x 기준으로 정렬되고 x가 같을 경우 y는 내림차순 정렬
 
 15. 기타 내장 함수
 
@@ -970,7 +970,7 @@ result = eval("3*5")
 print(result) // 15
 
 
-2) sorted() - 이터러블 객체가 들어왔을 때 정렬된 결과를 반환.
+2) sorted() - 이터러블 객체가 들어왔을 때 정렬된 결과를 리스트로 반환.
 => 주로 "리스트"가 아닌 이터러블 객체에 사용하는듯 리스트는 그냥 sort() 쓰면 된다.
 
 result = sorted([1, 2, 3])
