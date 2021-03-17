@@ -874,13 +874,18 @@ dic.clear() // sort와 마찬가지로 print() 내부에서 사용 x 반환값�
 print(dic) // {}
 
 
-5) key로 value 얻기 - get()
+5) key로 value 얻기 - get() ***
 
 dic = {"1": "a", "2": "b"}
 print(dic.get("1"))
 print(dic.get("1", 0)) => key에 해당하는 값이 없으면 디폴트 값 가져옴
 -> 직접 접근과 다르게 키값이 딕셔너리 내부에 존재하지 않아도 오류 출력하지 않음
 
+    ***** 테크닉
+  for x in arr1:
+    d[x] = d.get(x, 0) + 1
+  for x in arr2:
+    d[x] = d.get(x, 0) - 1
 
 6) 해당 key가 딕셔너리 안에 있는지 조사하기 - in
 
